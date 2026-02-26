@@ -33,14 +33,32 @@ for n in range(1,6):
     scores.append(score)
 
 print('分类数由1到5的模型依次得分：',scores)
+#创建一个新的绘图窗口,可以指定画布大小（如 plt.figure(figsize=(8,6))）
 plt.figure()
+#绘制折线图
+'''
+range(1,6)：x 轴数据，对应 n_neighbors 的取值（1、2、3、4、5）；
+scores：y 轴数据，对应每个 K 值的精准率（precision）；
+'o--'：线条样式 ——o 表示在每个数据点画圆形标记，-- 表示线条是虚线；
+color='blue'：设置线条和标记点的颜色为蓝色'''
 plt.plot(range(1,6),scores,'o--',color='blue')
+#设置 x 轴的标签（名称）,fontsize=14：设置标签字体大小为 14 号,$...$美化文本
 plt.xlabel('$n\_neighbors$',fontsize=14)
+#设置 y 轴的标签（名称）
 plt.ylabel('$precision$',fontsize=14)
+#在每个数据点旁标注具体的精准率数值（避免看图猜值）
+'''
+zip(range(1,6),scores)：把 x 轴值（1-5）和对应的 y 轴值（scores）一一配对；
+x-0.18, y-0.1：标注文本的坐标（相对于数据点 (x,y) 向左偏移 0.18、向下偏移 0.1，避免遮挡数据点）；
+f'${y}$'：要显示的文本内容（当前精准率值），$...$ 让数值显示更美观；'''
 for x,y in zip(range(1,6),scores):
     plt.text(x-0.18,y-0.1,f'${y}$',fontsize=14)
+#设置图表的标题
 plt.title(f'$precision\ of\ different\ neighbors$',fontsize=14)
+#自定义 x 轴的刻度值。
 plt.xticks(np.arange(1,6))
+#自定义 y 轴的刻度值
 plt.yticks(np.linspace(0,1,5))
+#显示绘制好的图表
 plt.show()
 
